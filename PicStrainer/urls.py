@@ -20,10 +20,13 @@ from pic import views as picViews
 from django.conf import settings
 from django.conf.urls.static import static
 
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',picViews.upload_image),
     path('upload/', picViews.upload_image, name='upload_image'),
+    path('visualization/', picViews.Show_Images, name="Show_Images"),
+    path('', picViews.Return_Home, name='Return_Home')
 ]
 
 if settings.DEBUG:
