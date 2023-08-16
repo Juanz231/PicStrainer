@@ -6,19 +6,7 @@ from .forms import ImageUploadForm
 from pic.models import Image
 
 # Create your views here.
-'''
-def home(request):
-    if request.method == 'POST':
-        form = DocumentoForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            return redirect('home')#redirigue a donde deseas
-    else:
-        form = DocumentoForm()
-    return render(request, 'home.html', {
-        'form': form
-    })
-'''
+
 def upload_image(request):
     mis_imagenes = Image.objects.all()
     if request.method == 'POST':
@@ -30,5 +18,7 @@ def upload_image(request):
     else:
         image_form = ImageUploadForm()
         return render(request, 'home.html',{'image_form':image_form, 'usuarios':mis_imagenes} )
+    
+    
     
 

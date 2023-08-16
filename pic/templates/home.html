@@ -18,23 +18,9 @@
             <br>
             <button type="submit" class="btn btn-primary">Subir Imagen</button>
         </form>
-        <br>
-        <table  class="table table-striped table-bordered">
-            <thead class="thead-dark">
-              <tr>
-                <th>#</th>
-                <th>Imagen</th>
-              </tr>
-            </thead>
-    <tbody>
-              {% for imagen in imagenes %}
-              <tr>
-                <img src="{{imagen.image.url}}">
-              </tr>
-              {% endfor %}
-            </tbody>
-          </table>
-          
+        {% for imagen in imagenes %}
+          <img src="{{imagen.image.url}}">
+        {% endfor %}
     </div>
 </body>
 </html>
