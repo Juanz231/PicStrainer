@@ -18,9 +18,17 @@
             <br>
             <button type="submit" class="btn btn-primary">Subir Imagen</button>
         </form>
-        {% for imagen in imagenes %}
-          <img src="{{imagen.image.url}}">
-        {% endfor %}
+        <br>
+        <form action="{% url 'Show_Images' %}" method="post">
+          {% csrf_token %}
+          <button type="submit" class="btn btn-primary" value="Mostrar imagenes">Mostrar imagenes </button>
+        </form>
+        {% if imagenes %}
+          {% for imagen in imagenes %}
+            <img src="{{ imagen }}" alt="">
+          {% endfor %}
+        {% endif %}
+          
     </div>
 </body>
 </html>
