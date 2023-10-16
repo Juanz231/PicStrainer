@@ -23,12 +23,31 @@
           {% csrf_token %}
           <button type="submit" class="btn btn-primary" value="Mostrar imagenes">Mostrar imagenes </button>
         </form>
-        {% if imagenes %}
-          {% for imagen in imagenes %}
-            <img src="{{ imagen }}" alt="">
-          {% endfor %}
-        {% endif %}
-          
+        {% csrf_token %}
+        {% if img_path %}
+        <div>
+            <div class="container mt-5" width="400px" heigth="300px">
+               <center> <img src="{{ img_path }}" style="margin: 20px;border-radius: 40%;
+                overflow: hidden; width: 400px; heigth: 300px"/>
+              <h2>Resultados del reconocimiento de rostros:</h2>
+              <br>
+              <p>Edad: {{ age }}</p>
+              <p>Genero: {{ gender }}</p>
+              <p>Estado de animo: {{ emotion }}</p>
+              <p> Raza: {{ race }} </p> </center>
+            </div>
+        </div>
+        {% endif %} 
+        {% csrf_token %}
+        {% if images %}
+        <div>
+          <h1> Rostros similares </h1>
+        {% for imagen in images %}
+                <img src="{{ imagen }}" style="margin: 20px;border-radius: 40%;
+                overflow: hidden; width: 200px; object-fit: cover"/>
+            {% endfor %}
+          </div>
+            {% endif %}
     </div>
 </body>
 </html>

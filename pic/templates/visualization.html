@@ -10,9 +10,9 @@
         <br>
         <div class="row row-cols-1 row-cols-md-3 g-4">
             {% csrf_token %}
-            {% if imagenes %}
-                {% for imagen in imagenes %}
-            <div v-for="imagen in imagenes" class="col">
+            {% if images %}
+                {% for imagen in images %}
+            <div v-for="imagen in images" class="col">
                 <div class="card">
                 <img class="card-img-top" src="{{ imagen }}" />
                 
