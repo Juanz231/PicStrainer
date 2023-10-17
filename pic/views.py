@@ -44,7 +44,7 @@ def upload_image(request):
             img_url = new_image.image.url
             images.pop(0)
             # Pasar los resultados a la plantilla
-            os.remove("C:/Users/juanz/Desktop/PicStrainerProject/pics/imagenes/representations_vgg_face.pkl")
+            os.remove("pics/imagenes/representations_vgg_face.pkl")
             return render(request, 'home.html', {'image_form': image_form, 'imagenes': mis_imagenes,
                                                   'age': age, 'gender': gender, 'emotion': emotion,
                                                   'img_path': img_url, 'images': images, 'race': race})
@@ -77,6 +77,8 @@ def Return_Home(request):
         return render(request, 'home.html',{'image_form':image_form,'images':my_images} )
     else:
         return render(request, 'home.html',{'image_form':image_form,'images':my_images} )  
-    
+
+def Start(request):
+    return render(request, 'start.html')
 # def ShowImage_Deepface(request):
     
