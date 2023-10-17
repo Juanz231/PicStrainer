@@ -20,15 +20,17 @@ import os
         #return render(request, 'home.html',{'image_form':image_form, 'usuarios':mis_imagenes} )
 
 def upload_image(request):
-    mis_imagenes = Image.objects.all()
+    user = request.user
+    mis_imagenes = Image.objects.filter(user = user)
     image_form = ImageUploadForm(request.POST, request.FILES)
     urls = [imagen.image.url for imagen in mis_imagenes]
     if request.method == 'POST':
         image_form = ImageUploadForm(request.POST, request.FILES)
         if image_form.is_valid():
             # Guardar la imagen en la base de datos
-            new_image = image_form.save()
-
+            new_image = image_form.save(commit=False)
+            new_image.user = user
+            new_image.save()
             # Realizar el reconocimiento de rostros
             img_path1 = new_image.image.path
             InDB = DeepFace.find(img_path = img_path1, db_path="pics\imagenes")

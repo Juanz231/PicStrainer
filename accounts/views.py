@@ -7,6 +7,7 @@ from django.contrib.auth import login, logout, authenticate
 from django.shortcuts import redirect
 from django.db import IntegrityError
 from django.contrib.auth.decorators import login_required
+from os import mkdir
 
 
 def signupaccount(request):
@@ -18,6 +19,8 @@ def signupaccount(request):
             try:
                 user = User.objects.create_user(request.POST['username'], password=request.POST['password1'])
                 user.save()
+                nombre_usuario = nombre_carpeta(request.POST['username'])
+                mkdir(f'pics/imagenes/{nombre_usuario}')
                 login(request, user)
                 return redirect('home')
             except IntegrityError:
@@ -43,3 +46,14 @@ def loginaccount(request):
     else:
         login(request,user)
     return redirect('home')
+
+def nombre_carpeta(nombre):
+    nombre = nombre.replace('?','')
+    nombre = nombre.replace('*','')
+    nombre = nombre.replace('/','')
+    nombre = nombre.replace(':','')
+    nombre = nombre.replace('|','')
+    nombre = nombre.replace('<','')
+    nombre = nombre.replace('>','')
+    nombre = nombre.replace(' ','_')
+    return nombre
