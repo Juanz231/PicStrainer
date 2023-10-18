@@ -1,25 +1,41 @@
 <!DOCTYPE html>
 <html>
 <head>
+  {% load static %}
     <title>Subir Imagen</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="{% static 'css/start.css' %}">
 </head>
 <body>
   {% load static %}
-    <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
-        <h2>Subir Imagen</h2>
-        <form method="POST" enctype="multipart/form-data">
-            {% csrf_token %}
-            {% for field in image_form %}
-            <div class='form-group'>
-                <label for="{{ field.name }}">{{ field.label }}</label>
-                {{ field }}
-            </div>
-            {% endfor %}
-            <br>
+  <div class="d-flex flex-colum flex-md-row aling-items-center pb-3 mb-4 navbar">
+    <a class="d-flex aling-items-center link-body-emphasis text-decoration-none" href="#">
+      <img src="{% static 'images/intento.jpg' %}" width="45" height="40" class="me-2">  
+      <span class="fs-4">PicStrainer</span>
+    </a>
+  </div>
+    <div class="align-items-center mb-3 text-center">
+      <div class="row justify-content-center">
+        <div class="col-md-6">
+          <div class="card">
+            <div class="card-body">
+            <h2 class="card-title">Subir Imagen</h2>
+            <form method="POST" enctype="multipart/form-data">
+              {% csrf_token %}
+              {% for field in image_form %}
+              <div class='form-group'>
+                  <label for="{{ field.name }}">{{ field.label }}</label>
+                  {{ field }}
+              </div>
+              {% endfor %}
+              <br>
             <button type="submit" class="btn btn-primary">Subir Imagen</button>
         </form>
+      </div>
+      </div>
+        </div>
+      </div>
+      
         <br>
         <form action="{% url 'Show_Images' %}" method="post">
           {% csrf_token %}
@@ -47,9 +63,9 @@
         {% for imagen in images %}
                 <img src="{{ imagen }}" style="margin: 20px;border-radius: 40%;
                 overflow: hidden; width: 200px; object-fit: cover"/>
-            {% endfor %}
+        {% endfor %}
           </div>
-            {% endif %}
+        {% endif %}
     </div>
 </body>
 </html>

@@ -13,26 +13,28 @@
               <span class="fs-4">PicStrainer</span>
             </a>
           </div>
-      </body>
-</html>
-<div class="card mb-3">
-    <div class="row g-0">
-        <div>
-            <div class="card-body">
-                <h5 class="card-title">Login</h5>
-                {% if error %}
-                <div class="alert alert-danger mt-3" role="alert">
-                    {{ error }}
+          <div class="row  justify-content-center mb-3 text-center">
+            <div class="col-md-6">
+                <div>
+                    <div class="row g-0">
+                        <div class="ard mb-4 rounded-3 shadow-sm">
+                            <h5 class="card-title">Login</h5>
+                            {% if error %}
+                            <div class="alert alert-danger mt-3" role="alert">
+                                {{ error }}
+                            </div>
+                            {% endif %}
+                            <p class="card-text">
+                                <form method="POST">
+                                    {% csrf_token %}
+                                    {{ form.as_p }}
+                                    <button type="submit" class="btn btn-primary">Login</button>
+                                </form>
+                            </p>
+                        </div>
+                    </div>
                 </div>
-                {% endif %}
-                <p class="card-text">
-                    <form method="POST">
-                        {% csrf_token %}
-                        {{ form.as_p }}
-                        <button type="submit" class="btn btn-primary">Login</button>
-                    </form>
-                </p>
             </div>
         </div>
-    </div>
-</div>
+      </body>
+</html>
