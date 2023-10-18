@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'deepface',
     'pic',
     'accounts',
+    'Docs',
 ]
 
 MIDDLEWARE = [
