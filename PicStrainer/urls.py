@@ -17,6 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from pic import views as picViews
+from Docs import views as DocViews
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -28,7 +29,10 @@ urlpatterns = [
     path('upload/', picViews.upload_image, name='upload_image'),
     path('visualization/', picViews.Show_Images, name="Show_Images"),
     path('', picViews.Return_Home, name='Return_Home'),
-    path('accounts/', include('accounts.urls'))
+    path('accounts/', include('accounts.urls')),
+    path('Docs/', DocViews.upload_doc, name='upload_doc'),
+    path('VisualDocs/', DocViews.Show_Docs, name='Show_Docs'),
+    path('Docs/', DocViews.GoDocs, name='Go_Docs'),
 ]
 
 if settings.DEBUG:

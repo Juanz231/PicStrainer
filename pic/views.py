@@ -6,6 +6,8 @@ from pic.models import Image
 from .models import Image
 from django.contrib.auth.models import User
 import os
+from Docs.models import Doc
+
 #def upload_image(request):
     #mis_imagenes = Image.objects.all()
     #image_form = ImageUploadForm(request.POST, request.FILES)
@@ -38,15 +40,22 @@ def upload_image(request):
             img_path1 = new_image.image.path
             InDB = DeepFace.find(img_path = img_path1, db_path="pics\imagenes\{}".format(User.get_username()))
             images = InDB[0]["identity"].tolist()
-            print(images)
             result = DeepFace.analyze(img_path1)
             # Obtener los resultados del reconocimiento de rostros
-            print(images)
+            
             age = result[0]["age"]
             gender = result[0]["dominant_gender"]
             emotion = result[0]["dominant_emotion"]
             race = result[0]["dominant_race"]
+            
             img_url = new_image.image.url
+            new_image.age = int(age)
+            new_image.gender = gender
+            new_image.emotion = emotion
+            new_image.race = race
+            
+            new_image.save()
+            
             images.pop(0)
             # Pasar los resultados a la plantilla
             os.remove("pics/imagenes/{}/representations_vgg_face.pkl".format(User.get_username()))
@@ -91,5 +100,13 @@ def Return_Home(request):
 
 def Start(request):
     return render(request, 'start.html')
-# def ShowImage_Deepface(request):
+
+def GoDocs(request):
+    User = request.user
+    my_Docs = Doc.objects.filter(user = User)
+    image_form = ImageUploadForm(request.POST, request.FILES)
+    if request.method == "POST":
+        return redirect('GoDocs')
+    else:
+        return redirect('GoDocs')
     

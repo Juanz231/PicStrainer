@@ -9,3 +9,7 @@ class Image(models.Model):
     image = models.ImageField(upload_to=user_directory_path)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     date_time = models.DateTimeField(auto_now = True)
+    age = models.IntegerField(null=True)
+    gender = models.CharField(max_length=255,null=True)
+    emotion = models.CharField(max_length=255,null=True)
+    race = models.CharField(max_length=255,null=True)

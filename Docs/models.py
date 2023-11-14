@@ -7,5 +7,6 @@ def user_directory_path(instance, filename):
 
 class Doc(models.Model):
     image = models.ImageField(upload_to=user_directory_path)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, default=1)
     date_time = models.DateTimeField(auto_now = True)
+    type = models.CharField(max_length=255, null=True)

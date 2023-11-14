@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Subir Documento</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h2>Subir Documento</h2>
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            {% for field in image_form %}
+            <div class='form-group'>
+                <label for="{{ field.name }}">{{ field.label }}</label>
+                {{ field }}
+            </div>
+            {% endfor %}
+            <br>
+            <button type="submit" class="btn btn-primary">Subir Documento</button>
+        </form>
+        <br>
+        <form action="{% url 'Show_Docs' %}" method="post">
+          {% csrf_token %}
+          <button type="submit" class="btn btn-primary" value="Mostrar imagenes">Mostrar Documentos </button>
+        </form>
+        {% csrf_token %}
+        {% if img_path %}
+        <div>
+            <div class="container mt-5" width="400px" heigth="300px">
+               <center> <img src="{{ img_path }}" style="margin: 20px;border-radius: 5%;
+                overflow: hidden; width: 400px; heigth: 300px"/>
+              <h2>Resultados del analisís: </h2>
+              <br>
+              <p>Tipo: {{ type }}</p>
+               </center>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
+
+<!--<div class="mb-3">
+    <label for="imageUpload" class="form-label">Seleccione una imagen:</label>
+    <input type="file" class="form-control" id="imageUpload" name="image">
+    <table  class="table table-striped table-bordered">
+            <thead class="thead-dark">
+              <tr>
+                <th>#</th>
+                <th>Imagen</th>
+              </tr>
+            </thead>
+    <tbody>
+              {% for imagen in imagenes %}
+              <tr>
+                <td>{{ imagen.image }}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+</div>-->
