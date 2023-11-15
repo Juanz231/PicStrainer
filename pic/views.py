@@ -40,30 +40,34 @@ def upload_image(request):
             new_image.save()
             # Realizar el reconocimiento de rostros
             img_path1 = new_image.image.path
-            InDB = DeepFace.find(img_path = img_path1, db_path="pics\imagenes\{}".format(User.get_username()))
-            images = InDB[0]["identity"].tolist()
-            result = DeepFace.analyze(img_path1)
-            # Obtener los resultados del reconocimiento de rostros
-            
-            age = result[0]["age"]
-            gender = result[0]["dominant_gender"]
-            emotion = result[0]["dominant_emotion"]
-            race = result[0]["dominant_race"]
-            
-            img_url = new_image.image.url
-            new_image.age = int(age)
-            new_image.gender = gender
-            new_image.emotion = emotion
-            new_image.race = race
-            
-            new_image.save()
-            
-            images.pop(0)
-            # Pasar los resultados a la plantilla
-            os.remove("pics/imagenes/{}/representations_vgg_face.pkl".format(User.get_username()))
-            return render(request, 'home.html', {'image_form': image_form, 'imagenes': mis_imagenes,
-                                                  'age': age, 'gender': gender, 'emotion': emotion,
-                                                  'img_path': img_url, 'images': images, 'race': race})
+            try:
+                InDB = DeepFace.find(img_path = img_path1, db_path="pics\imagenes\{}".format(User.get_username()))
+                images = InDB[0]["identity"].tolist()
+                result = DeepFace.analyze(img_path1)
+                # Obtener los resultados del reconocimiento de rostros
+                
+                age = result[0]["age"]
+                gender = result[0]["dominant_gender"]
+                emotion = result[0]["dominant_emotion"]
+                race = result[0]["dominant_race"]
+                
+                img_url = new_image.image.url
+                new_image.age = int(age)
+                new_image.gender = gender
+                new_image.emotion = emotion
+                new_image.race = race
+                
+                new_image.save()
+                
+                images.pop(0)
+                # Pasar los resultados a la plantilla
+                os.remove("pics/imagenes/{}/representations_vgg_face.pkl".format(User.get_username()))
+                return render(request, 'home.html', {'image_form': image_form, 'imagenes': mis_imagenes,
+                                                    'age': age, 'gender': gender, 'emotion': emotion,
+                                                    'img_path': img_url, 'images': images, 'race': race, 'mensaje':'Imagen guardada correctamente'})
+            except:
+                new_image.delete()
+                return render(request, 'home.html',{'image_form':image_form, 'usuarios':mis_imagenes, 'mensaje': 'Imagen no valida, intente con otra'} )
         image_form = ImageUploadForm()
         return render(request, 'home.html',{'image_form':image_form, 'usuarios':mis_imagenes} )
     return render(request, 'home.html',{'image_form':image_form, 'usuarios':mis_imagenes} )
@@ -86,6 +90,7 @@ def Show_Images(request):
             try:
                 consulta = Q(user = User)
                 resultado = get_completion(search_term)
+                print(resultado)
                 lista_parametros = resultado.split(",")
                 if lista_parametros[0] == "null" and lista_parametros[0] != "null":
                     lista_parametros[0] = 0
@@ -99,6 +104,7 @@ def Show_Images(request):
                 if lista_parametros[4] != "null":
                     consulta &= Q(gender=lista_parametros[4])
                 my_images = Image.objects.filter(consulta)
+                print(consulta)
                 urls = [imagen.image.url for imagen in my_images]
             except:
                 urls = [imagen.image.url for imagen in my_images]    
