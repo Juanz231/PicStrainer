@@ -75,40 +75,40 @@ def Show_Images(request):
     else:
     # Redirige al usuario a la página de inicio de sesión
         return redirect('loginaccount')
-    searchTerm = request.GET.get('searchPics')
+    search_term = request.GET.get('searchPics')
+    print("Search Term:", search_term)
     my_images = Image.objects.filter(user = User)
-    image_form = ImageUploadForm(request.POST, request.FILES)
-    if request.method == "POST":
     # Obtener las imágenes que quieres mostrar  
-        if my_images:
-            if searchTerm:
-                try:
-                    consulta = Q(user = User)
-                    resultado = get_completion(searchTerm)
-                    lista_parametros = resultado.split(",")
-                    if lista_parametros[0] == "null" and lista_parametros[0] != "null":
-                        lista_parametros[0] = 0
-                        consulta &= Q(age__range=(int(lista_parametros[0]), int(lista_parametros[1])))
-                    elif lista_parametros[0] != "null" and lista_parametros[0] != "null":
-                        consulta &= Q(age__range=(int(lista_parametros[0]), int(lista_parametros[1])))
-                    if lista_parametros[2] != "null":
-                        consulta &= Q(race=lista_parametros[2])
-                    if lista_parametros[3] != "null":
-                        consulta &= Q(emotion=lista_parametros[3])
-                    if lista_parametros[4] != "null":
-                        consulta &= Q(gender=lista_parametros[4])
-                    my_images = Image.objects.filter(consulta)
-                except:
-                    urls = [imagen.image.url for imagen in my_images]    
-            else:
-            # Crear una lista de URLs de las imágenes
+    if my_images:
+        print("hola")
+        if search_term:
+            print("entromagico")
+            try:
+                consulta = Q(user = User)
+                resultado = get_completion(search_term)
+                lista_parametros = resultado.split(",")
+                if lista_parametros[0] == "null" and lista_parametros[0] != "null":
+                    lista_parametros[0] = 0
+                    consulta &= Q(age__range=(int(lista_parametros[0]), int(lista_parametros[1])))
+                elif lista_parametros[0] != "null" and lista_parametros[0] != "null":
+                    consulta &= Q(age__range=(int(lista_parametros[0]), int(lista_parametros[1])))
+                if lista_parametros[2] != "null":
+                    consulta &= Q(race=lista_parametros[2])
+                if lista_parametros[3] != "null":
+                    consulta &= Q(emotion=lista_parametros[3])
+                if lista_parametros[4] != "null":
+                    consulta &= Q(gender=lista_parametros[4])
+                my_images = Image.objects.filter(consulta)
                 urls = [imagen.image.url for imagen in my_images]
+            except:
+                urls = [imagen.image.url for imagen in my_images]    
+        else:
+        # Crear una lista de URLs de las imágenes
+            urls = [imagen.image.url for imagen in my_images]
     # Enviar la lista al template
-            return render(request, "visualization.html", {"images": urls})
-        return render(request, 'home.html',{'image_form':image_form,'images':my_images} )
-    else:
-    # Si no es una petición POST, no mostrar nada
-        return render(request, 'home.html',{'image_form':image_form,'images':my_images} )
+        return render(request, "visualization.html", {'searchTerm':search_term,"images": urls})
+    return render(request, 'home.html',{'image_form':image_form,'images':my_images} )
+
     
     
 
