@@ -190,8 +190,6 @@ def Show_Images(request):
         return render(request, "visualization.html", {'searchTerm':search_term,"images": urls})
     return render(request, 'home.html',{'image_form':image_form,'images':my_images} )
 
-    
-
 def Return_Home(request):
     User = request.user
     my_images = Image.objects.filter(user = User)
