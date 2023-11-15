@@ -15,3 +15,5 @@ Deprecated>=1.2.13
 transformers
 deepface
 torch
+openai
+python-dotenv
