@@ -13,6 +13,16 @@
       <img src="{% static 'images/intento.jpg' %}" width="45" height="40" class="me-2">  
       <span class="fs-4">PicStrainer</span>
     </a>
+    {% if user.is_authenticated %}
+                        <a class="nav-link" href="{% url 'logoutaccount' %}">
+                            Logout ({{ user.username }})
+                        </a>
+                        {% else %}
+                        <a class="nav-link" href="{% url 'loginaccount' %}">Login</a>
+                        <a class="nav-link" href="{% url 'signupaccount' %}">
+                            Sign Up
+                        </a>
+    {% endif %}
   </div>
     <div class="align-items-center mb-3 text-center">
       <div class="row justify-content-center">
@@ -31,6 +41,9 @@
               <br>
             <button type="submit" class="btn btn-primary">Subir Imagen</button>
         </form>
+        {% if mensaje %}
+         <p>{{ mensaje }}</p>
+        {% endif %}
       </div>
       </div>
         </div>

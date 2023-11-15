@@ -46,7 +46,7 @@ def signupaccount(request):
 @login_required       
 def logoutaccount(request):
     logout(request)
-    return redirect('home')
+    return redirect('start')
 
 def nombre_carpeta(nombre):
     nombre = nombre.replace('?','')
