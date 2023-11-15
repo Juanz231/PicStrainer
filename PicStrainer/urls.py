@@ -33,6 +33,8 @@ urlpatterns = [
     path('Docs/', DocViews.upload_doc, name='upload_doc'),
     path('VisualDocs/', DocViews.Show_Docs, name='Show_Docs'),
     path('Docs/', DocViews.GoDocs, name='Go_Docs'),
+    path('visualization/<path:imagen_url>/', picViews.imagen_detalle_generica, name='detalle_imagen_generica'),
+    path('super_resolution/', picViews.super_resolution, name='super_resolution')
 ]
 
 if settings.DEBUG:

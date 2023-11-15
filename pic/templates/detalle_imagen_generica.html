@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalles de la imagen</title>
+    {% load static %}
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/start.css' %}">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f9fa;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        h2 {
+            color: #f7874b;
+            margin-top: 20px;
+            font-size: 2em;
+        }
+
+        .card {
+            width: 50%;
+            border-radius: 15px;
+            margin: 20px auto;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            background-color: #fff;
+        }
+
+        img {
+            width: 100%;
+            border-radius: 15px;
+        }
+
+        /* Estilos para dispositivos más pequeños */
+        @media (max-width: 768px) {
+            .card {
+                width: 80%;
+            }
+        }
+
+        /* Estilos para los botones */
+        .button-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0 40px 0; /* Agregado margen inferior */
+        }
+
+        .button {
+            background-color: #f7874b;
+            color: #fff;
+            padding: 20px 40px; /* Aumentado el padding para hacer los botones más grandes */
+            margin: 0 10px;
+            border: none;
+            border-radius: 10px; /* Aumentado el border-radius para hacer los botones más redondeados */
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease; /* Agregado transform al transition */
+            font-size: 1.2em;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15); /* Agregado box-shadow para darle profundidad al botón */
+        }
+
+        .button:hover {
+            background-color: #c0571e;
+            transform: scale(1.10); /* Agregado efecto de escala al pasar el mouse */
+        }
+    </style>
+</head>
+<body>
+    {% load static %}
+  <div class="d-flex flex-colum flex-md-row aling-items-center pb-3 mb-4 navbar">
+    <a class="d-flex aling-items-center link-body-emphasis text-decoration-none" href="#">
+      <img src="{% static 'images/intento.jpg' %}" width="45" height="40" class="me-2">  
+      <span class="fs-4">PicStrainer</span>
+    </a>
+  </div>
+    <h2>Detalles de la imagen</h2>
+    <div class="card">
+        <img src="{{ imagen_url }}" alt="Imagen" />
+    </div>
+    
+    <div class="button-container">
+            <a href="{{ imagen_url }}" download>
+                <button class="button">Descargar imagen</button>
+            </a>
+            <button class="button" onclick="window.location.href='/super_resolution/?image_path=' + encodeURIComponent('{{ imagen_url }}')">
+                Reescalar imagen: x4
+            </button>
+    </div>
+    <!-- Otros detalles de la imagen -->
+    <!-- Puedes agregar más contenido según tus necesidades -->
+</body>
+</html>
