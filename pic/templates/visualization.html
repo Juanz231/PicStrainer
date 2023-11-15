@@ -1,32 +1,42 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Visualizar imagenes</title>
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css">
-    </head>
-    <body>
+<head>
+    {% load static %}
+    <title>Visualizar imágenes</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/start.css' %}">
+</head>
+<body>
+    <div class="d-flex flex-column flex-md-row align-items-center pb-3 mb-4 navbar">
+        <a class="d-flex align-items-center link-body-emphasis text-decoration-none" href="#">
+            <img src="{% static 'images/intento.jpg' %}" width="45" height="40" class="me-2">  
+            <span class="fs-4">PicStrainer</span>
+        </a>
+    </div>
     <div class="container mt-5">
-        <h2> Visualización de imagenes </h2>
+        {% load static %}
+  
+        <h2> Visualización de imágenes </h2>
         <br>
         <div class="row row-cols-1 row-cols-md-3 g-4">
             {% csrf_token %}
             {% if images %}
-                {% for imagen in images %}
-            <div v-for="imagen in images" class="col">
-                <div class="card">
-                <img class="card-img-top" src="{{ imagen }}" />
-                
-                </div>
-            </div>
-            {% endfor %}
+                {% for imagen_url in images %}
+                    <div class="col">
+                        <div class="card">
+                            <a href="{% url 'detalle_imagen_generica' imagen_url=imagen_url %}" class="text-decoration-none">
+                                <img class="card-img-top" src="{{ imagen_url }}" alt="Imagen" />
+                            </a>
+                        </div>
+                    </div>
+                {% endfor %}
             {% endif %}
-            
         </div>
         <br>
         <form action="{% url 'Return_Home' %}" method="POST">
             {% csrf_token %}
-            <button type="submit" class="btn btn-primary" value="Mostrar imagenes">Regresar </button>
-          </form>
+            <button type="submit" class="btn btn-primary" value="Mostrar imágenes">Regresar </button>
+        </form>
     </div>
-    </body>
+</body>
 </html>
