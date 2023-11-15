@@ -13,7 +13,18 @@
             <span class="fs-4">PicStrainer</span>
         </a>
     </div>
-    <div class="container mt-5">
+    <body>
+        <div class="container mt-5">
+            <form action="">
+                <div class="mb-3">
+                    <label for="searchPics" class="form-label">
+                        Busca tus imagenes:
+                    </label>
+                    <input type="text" class="form-control" name="searchPics" />
+                </div>
+                <button type="submit" class="btn btn-primary">Search</button>
+            </form>
+            <p> Buscando imagenes para {{ searchTerm }} </p>
         {% load static %}
   
         <h2> Visualización de imágenes </h2>
